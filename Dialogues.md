@@ -1,0 +1,128 @@
+---
+title: "Discovering Patterns in Film Dialogues"
+author: Ankit Saxena
+output:
+  html_document:
+    keep_md: true
+---
+
+### Introduction
+
+Effective dialogue between movie characters is one of the most important tools a filmmaker has to communicate the vision of their movie, move the plot forward, and engage the audience. Analyzing conversations between different movie characters can uncover the quantitative and qualitative differences between dialogues across different films and also uncover any forms of bias (like gender bias) that may exist in these conversations.
+
+### The Data
+
+The data set has been been extracted by the Cornell Movie - Dialogs Corpus that contains 220,579 conversational exchanges between 9,035 characters from 617 movies. In total, there are 304,713 dialogues taken from raw movie scripts. The entire data set is avaliable in Kaggle's website and can be accessed through this [link](https://www.kaggle.com/rajathmc/cornell-moviedialog-corpus).
+
+The data has been systematically organized into five different tables in CSV format. Their contents are described below:
+
+* _movie_titles_metadata.csv_: Information about each movie title uniquely identified by the Movie ID column
+
+* _movie_characters_metadata.csv_: All movie characters uniquely identified by the Character ID column
+
+* _movie_lines.csv_: The actual text of each dialogue spoken uniquely identified by the Line ID column
+  
+* _movie_conversations.csv_: The structure of all conversations uniquely identified by the Character ID of the first character in the conversation, Character ID of the second character, and the Movie ID column
+
+* _raw_script_urls.csv_: The uniform resource locator (URL) of all the raw scripts
+
+### Repository Structure
+
+The following repository path will be used as the root folder for the purpose of this analysis. Note that it may be different for otehr users:
+
+> /Users/ankitsaxena/COMM-783/communication-in-films
+
+The folders are organized as follows:
+
+* _communication-in-films_: Root folder
+  + _Dialogues.Rmb_: The R Markdown file for this project
+  + _Data_
+    + _movie_titles_metadata.csv_
+    + _movie_characters_metadata.csv_
+    + _movie_lines.csv_
+    + _movie_conversations.csv_
+    + _raw_script_urls.csv_
+
+### Importing the Data
+
+Run the following scripts to import the data from your repository and check the dimensions of each table to makes sure the complete set has been loaded.
+
+__Movie Titles__
+
+```r
+MovieTitles <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_titles_metadata.csv", header=FALSE, sep="|")
+```
+
+
+```r
+dim(MovieTitles)
+```
+
+```
+## [1] 617   6
+```
+
+__Movie Characters__
+
+```r
+MovieCharacters <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_characters_metadata.csv", header=FALSE, sep="|")
+```
+
+
+```r
+dim(MovieCharacters)
+```
+
+```
+## [1] 9035    6
+```
+
+__Movie Lines__
+
+```r
+MovieLines <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_lines.csv", header=FALSE, sep="|")
+```
+
+```
+## Warning in scan(file = file, what = what, sep = sep, quote = quote, dec =
+## dec, : EOF within quoted string
+```
+
+
+```r
+dim(MovieLines)
+```
+
+```
+## [1] 149969      5
+```
+
+__Movie Conversations__
+
+```r
+MovieConversations <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_conversations.csv", header=FALSE, sep="|")
+```
+
+
+```r
+dim(MovieConversations)
+```
+
+```
+## [1] 83097     4
+```
+
+__Raw Script URLs__
+
+```r
+MovieRawScriptURL <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/raw_script_urls.csv", header=FALSE, sep="|")
+```
+
+
+```r
+dim(MovieRawScriptURL)
+```
+
+```
+## [1] 617   3
+```
