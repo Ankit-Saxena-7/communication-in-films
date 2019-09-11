@@ -12,7 +12,7 @@ Effective dialogue between movie characters is one of the most important tools a
 
 ### The Data
 
-The data set has been been extracted by the Cornell Movie - Dialogs Corpus that contains 220,579 conversational exchanges between 9,035 characters from 617 movies. In total, there are 304,732 dialogues taken from raw movie scripts. The entire data set is avaliable in Kaggle's website and can be accessed through this [link](https://www.kaggle.com/rajathmc/cornell-moviedialog-corpus).
+The data set has been been extracted by the Cornell Movie - Dialogs Corpus that contains 220,579 conversational exchanges between 9,035 characters from 617 movies. In total, there are 304,713 dialogues taken from raw movie scripts. The entire data set is avaliable in Kaggle's website and can be accessed through this [link](https://www.kaggle.com/rajathmc/cornell-moviedialog-corpus).
 
 The data has been systematically organized into five different tables in CSV format. Their contents are described below:
 
