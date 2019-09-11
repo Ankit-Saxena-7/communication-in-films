@@ -12,36 +12,43 @@ Effective dialogue between movie characters is one of the most important tools a
 
 ### The Data
 
-The data set has been been extracted by the Cornell Movie - Dialogs Corpus that contains 220,579 conversational exchanges between 9,035 characters from 617 movies. In total, there are 304,713 dialogues taken from raw movie scripts. The entire data set is avaliable in Kaggle's website and can be accessed through this [link](https://www.kaggle.com/rajathmc/cornell-moviedialog-corpus).
+The data set has been been extracted by the Cornell Movie - Dialogs Corpus that contains 220,579 conversational exchanges between 9,035 characters from 617 movies. In total, there are 304,732 dialogues taken from raw movie scripts. The entire data set is avaliable in Kaggle's website and can be accessed through this [link](https://www.kaggle.com/rajathmc/cornell-moviedialog-corpus).
 
 The data has been systematically organized into five different tables in CSV format. Their contents are described below:
 
-* _movie_titles_metadata.csv_: Information about each movie title uniquely identified by the Movie ID column
+* _MovieTitles.csv_: Information about each movie title uniquely identified by the Movie ID column
 
-* _movie_characters_metadata.csv_: All movie characters uniquely identified by the Character ID column
+* _MovieCharacters.csv_: All movie characters uniquely identified by the Character ID column
 
-* _movie_lines.csv_: The actual text of each dialogue spoken uniquely identified by the Line ID column
+* _MovieLines.csv_: The actual text of each dialogue spoken uniquely identified by the Line ID column
   
-* _movie_conversations.csv_: The structure of all conversations uniquely identified by the Character ID of the first character in the conversation, Character ID of the second character, and the Movie ID column
+* _MovieConversations.csv_: The structure of all conversations uniquely identified by the Character ID of the first character in the conversation, Character ID of the second character, and the Movie ID column
 
-* _raw_script_urls.csv_: The uniform resource locator (URL) of all the raw scripts
+* _MovieRawScriptURL.csv_: The uniform resource locator (URL) of all the raw scripts
 
 ### Repository Structure
 
 The following repository path will be used as the root folder for the purpose of this analysis. Note that it may be different for otehr users:
 
-> /Users/ankitsaxena/COMM-783/communication-in-films
+> _/Users/ankitsaxena/COMM-783/communication-in-films_
 
 The folders are organized as follows:
 
 * _communication-in-films_: Root folder
   + _Dialogues.Rmb_: The R Markdown file for this project
   + _Data_
-    + _movie_titles_metadata.csv_
-    + _movie_characters_metadata.csv_
-    + _movie_lines.csv_
-    + _movie_conversations.csv_
-    + _raw_script_urls.csv_
+    + _MovieTitles.csv_
+    + _MovieCharacters.csv_
+    + _MovieLines.csv_
+    + _MovieConversations.csv_
+    + _MovieRawScriptURLs.csv_
+
+### Coding standards
+
+* Entities like variables and functions have been named using camel case convention
+* Local variables have been prefixed using 'v'
+* Global variables have been prefixed using 'g'
+* Talbles have been prefixed using 'tab'
 
 ### Importing the Data
 
@@ -50,12 +57,12 @@ Run the following scripts to import the data from your repository and check the 
 __Movie Titles__
 
 ```r
-MovieTitles <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_titles_metadata.csv", header=FALSE, sep="|")
+tabMovieTitles <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieTitles.csv", header=FALSE, sep="|")
 ```
 
 
 ```r
-dim(MovieTitles)
+dim(tabMovieTitles)
 ```
 
 ```
@@ -65,12 +72,12 @@ dim(MovieTitles)
 __Movie Characters__
 
 ```r
-MovieCharacters <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_characters_metadata.csv", header=FALSE, sep="|")
+tabMovieCharacters <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieCharacters.csv", header=FALSE, sep="|")
 ```
 
 
 ```r
-dim(MovieCharacters)
+dim(tabMovieCharacters)
 ```
 
 ```
@@ -80,47 +87,42 @@ dim(MovieCharacters)
 __Movie Lines__
 
 ```r
-MovieLines <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_lines.csv", header=FALSE, sep="|")
-```
-
-```
-## Warning in scan(file = file, what = what, sep = sep, quote = quote, dec =
-## dec, : EOF within quoted string
+tabMovieLines <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieLines.csv", header=FALSE, sep="|", quote="")
 ```
 
 
 ```r
-dim(MovieLines)
+dim(tabMovieLines)
 ```
 
 ```
-## [1] 149969      5
+## [1] 304732      5
 ```
 
 __Movie Conversations__
 
 ```r
-MovieConversations <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_conversations.csv", header=FALSE, sep="|")
+tabMovieConversations <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieConversations.csv", header=FALSE, sep="|")
 ```
 
 
 ```r
-dim(MovieConversations)
+dim(tabMovieConversations)
 ```
 
 ```
 ## [1] 83097     4
 ```
 
-__Raw Script URLs__
+__Movie Raw Script URLs__
 
 ```r
-MovieRawScriptURL <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/raw_script_urls.csv", header=FALSE, sep="|")
+tabMovieRawScriptURLs <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieRawScriptURLs.csv", header=FALSE, sep="|")
 ```
 
 
 ```r
-dim(MovieRawScriptURL)
+dim(tabMovieRawScriptURLs)
 ```
 
 ```

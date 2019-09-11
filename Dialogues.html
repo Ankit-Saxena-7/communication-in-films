@@ -374,21 +374,21 @@ summary {
 </div>
 <div id="the-data" class="section level3">
 <h3>The Data</h3>
-<p>The data set has been been extracted by the Cornell Movie - Dialogs Corpus that contains 220,579 conversational exchanges between 9,035 characters from 617 movies. In total, there are 304,713 dialogues taken from raw movie scripts. The entire data set is avaliable in Kaggle’s website and can be accessed through this <a href="https://www.kaggle.com/rajathmc/cornell-moviedialog-corpus">link</a>.</p>
+<p>The data set has been been extracted by the Cornell Movie - Dialogs Corpus that contains 220,579 conversational exchanges between 9,035 characters from 617 movies. In total, there are 304,732 dialogues taken from raw movie scripts. The entire data set is avaliable in Kaggle’s website and can be accessed through this <a href="https://www.kaggle.com/rajathmc/cornell-moviedialog-corpus">link</a>.</p>
 <p>The data has been systematically organized into five different tables in CSV format. Their contents are described below:</p>
 <ul>
-<li><p><em>movie_titles_metadata.csv</em>: Information about each movie title uniquely identified by the Movie ID column</p></li>
-<li><p><em>movie_characters_metadata.csv</em>: All movie characters uniquely identified by the Character ID column</p></li>
-<li><p><em>movie_lines.csv</em>: The actual text of each dialogue spoken uniquely identified by the Line ID column</p></li>
-<li><p><em>movie_conversations.csv</em>: The structure of all conversations uniquely identified by the Character ID of the first character in the conversation, Character ID of the second character, and the Movie ID column</p></li>
-<li><p><em>raw_script_urls.csv</em>: The uniform resource locator (URL) of all the raw scripts</p></li>
+<li><p><em>MovieTitles.csv</em>: Information about each movie title uniquely identified by the Movie ID column</p></li>
+<li><p><em>MovieCharacters.csv</em>: All movie characters uniquely identified by the Character ID column</p></li>
+<li><p><em>MovieLines.csv</em>: The actual text of each dialogue spoken uniquely identified by the Line ID column</p></li>
+<li><p><em>MovieConversations.csv</em>: The structure of all conversations uniquely identified by the Character ID of the first character in the conversation, Character ID of the second character, and the Movie ID column</p></li>
+<li><p><em>MovieRawScriptURL.csv</em>: The uniform resource locator (URL) of all the raw scripts</p></li>
 </ul>
 </div>
 <div id="repository-structure" class="section level3">
 <h3>Repository Structure</h3>
 <p>The following repository path will be used as the root folder for the purpose of this analysis. Note that it may be different for otehr users:</p>
 <blockquote>
-<p>/Users/ankitsaxena/COMM-783/communication-in-films</p>
+<p><em>/Users/ankitsaxena/COMM-783/communication-in-films</em></p>
 </blockquote>
 <p>The folders are organized as follows:</p>
 <ul>
@@ -397,39 +397,46 @@ summary {
 <li><em>Dialogues.Rmb</em>: The R Markdown file for this project</li>
 <li><em>Data</em>
 <ul>
-<li><em>movie_titles_metadata.csv</em></li>
-<li><em>movie_characters_metadata.csv</em></li>
-<li><em>movie_lines.csv</em></li>
-<li><em>movie_conversations.csv</em></li>
-<li><em>raw_script_urls.csv</em></li>
+<li><em>MovieTitles.csv</em></li>
+<li><em>MovieCharacters.csv</em></li>
+<li><em>MovieLines.csv</em></li>
+<li><em>MovieConversations.csv</em></li>
+<li><em>MovieRawScriptURLs.csv</em></li>
 </ul></li>
 </ul></li>
+</ul>
+</div>
+<div id="coding-standards" class="section level3">
+<h3>Coding standards</h3>
+<ul>
+<li>Entities like variables and functions have been named using camel case convention</li>
+<li>Local variables have been prefixed using ‘v’</li>
+<li>Global variables have been prefixed using ‘g’</li>
+<li>Talbles have been prefixed using ‘tab’</li>
 </ul>
 </div>
 <div id="importing-the-data" class="section level3">
 <h3>Importing the Data</h3>
 <p>Run the following scripts to import the data from your repository and check the dimensions of each table to makes sure the complete set has been loaded.</p>
 <p><strong>Movie Titles</strong></p>
-<pre class="r"><code>MovieTitles &lt;- read.csv(file=&quot;/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_titles_metadata.csv&quot;, header=FALSE, sep=&quot;|&quot;)</code></pre>
-<pre class="r"><code>dim(MovieTitles)</code></pre>
+<pre class="r"><code>tabMovieTitles &lt;- read.csv(file=&quot;/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieTitles.csv&quot;, header=FALSE, sep=&quot;|&quot;)</code></pre>
+<pre class="r"><code>dim(tabMovieTitles)</code></pre>
 <pre><code>## [1] 617   6</code></pre>
 <p><strong>Movie Characters</strong></p>
-<pre class="r"><code>MovieCharacters &lt;- read.csv(file=&quot;/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_characters_metadata.csv&quot;, header=FALSE, sep=&quot;|&quot;)</code></pre>
-<pre class="r"><code>dim(MovieCharacters)</code></pre>
+<pre class="r"><code>tabMovieCharacters &lt;- read.csv(file=&quot;/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieCharacters.csv&quot;, header=FALSE, sep=&quot;|&quot;)</code></pre>
+<pre class="r"><code>dim(tabMovieCharacters)</code></pre>
 <pre><code>## [1] 9035    6</code></pre>
 <p><strong>Movie Lines</strong></p>
-<pre class="r"><code>MovieLines &lt;- read.csv(file=&quot;/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_lines.csv&quot;, header=FALSE, sep=&quot;|&quot;)</code></pre>
-<pre><code>## Warning in scan(file = file, what = what, sep = sep, quote = quote, dec =
-## dec, : EOF within quoted string</code></pre>
-<pre class="r"><code>dim(MovieLines)</code></pre>
-<pre><code>## [1] 149969      5</code></pre>
+<pre class="r"><code>tabMovieLines &lt;- read.csv(file=&quot;/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieLines.csv&quot;, header=FALSE, sep=&quot;|&quot;, quote=&quot;&quot;)</code></pre>
+<pre class="r"><code>dim(tabMovieLines)</code></pre>
+<pre><code>## [1] 304732      5</code></pre>
 <p><strong>Movie Conversations</strong></p>
-<pre class="r"><code>MovieConversations &lt;- read.csv(file=&quot;/Users/ankitsaxena/COMM-783/communication-in-films/Data/movie_conversations.csv&quot;, header=FALSE, sep=&quot;|&quot;)</code></pre>
-<pre class="r"><code>dim(MovieConversations)</code></pre>
+<pre class="r"><code>tabMovieConversations &lt;- read.csv(file=&quot;/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieConversations.csv&quot;, header=FALSE, sep=&quot;|&quot;)</code></pre>
+<pre class="r"><code>dim(tabMovieConversations)</code></pre>
 <pre><code>## [1] 83097     4</code></pre>
-<p><strong>Raw Script URLs</strong></p>
-<pre class="r"><code>MovieRawScriptURL &lt;- read.csv(file=&quot;/Users/ankitsaxena/COMM-783/communication-in-films/Data/raw_script_urls.csv&quot;, header=FALSE, sep=&quot;|&quot;)</code></pre>
-<pre class="r"><code>dim(MovieRawScriptURL)</code></pre>
+<p><strong>Movie Raw Script URLs</strong></p>
+<pre class="r"><code>tabMovieRawScriptURLs &lt;- read.csv(file=&quot;/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieRawScriptURLs.csv&quot;, header=FALSE, sep=&quot;|&quot;)</code></pre>
+<pre class="r"><code>dim(tabMovieRawScriptURLs)</code></pre>
 <pre><code>## [1] 617   3</code></pre>
 </div>
 

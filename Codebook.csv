@@ -1,0 +1,25 @@
+﻿Table,Column Name,Description,Data Type,Length,Constraints
+MovieTitles,Movie ID,Unique identifier of the movie,Text,,Primary key
+MovieTitles,Movie Title,Title of the movie,Text,,
+MovieTitles,Year,Release year of the movie,Text,,
+MovieTitles,IMDb Rating,Average rating available in IMDb as of 2011,Numeric,,
+MovieTitles,IMDb Votes,Total voters in IMDb for this movie,Numeric,,
+MovieTitles,Genres,The genres this movie is characterized in by IMDb,String array,,
+MovieCharacters,Character ID,Unique identifier of the movie character,Text,,Primary key
+MovieCharacters,Character Name,First name of the character,Text,,
+MovieCharacters,Movie ID,Unique identifier of the movie,Text,,Foreign key
+MovieCharacters,Movie Title,Title of the movie,Text,,
+MovieCharacters,Gender,The gender of the character from IMDb,Text,,
+MovieCharacters,Position,The sequence of the character in the credits section,Numeric,,
+MovieLines,Line ID,Unique identifier of the dialogue,Text,,Primary Key
+MovieLines,Character ID,Unique identifier of the movie character,Text,,Foreign key
+MovieLines,Movie ID,Unique identifier of the movie,Text,,Foreign key
+MovieLines,Character Name,First name of the character,Text,,
+MovieLines,Dialogue,Text of the utterance,Text,,
+MovieConversations,Character ID First,Unique identifier of the first character in the conversation,Text,,Primary key
+MovieConversations,Character ID Second,Unique identifier of the second character in the conversation,Text,,Primary key
+MovieConversations,Movie ID,Unique identifier of the movie,Text,,Primary key
+MovieConversations,Conversation,List of the utterances that make the conversation in chronological order,String array,,Primary key
+MovieRawScriptURLs,Movie ID,Unique identifier of the movie,Text,,
+MovieRawScriptURLs,Movie Title,Title of the movie,Text,,
+MovieRawScriptURLs,Raw Script URL,URL of the raw movie scripts,Text,,Primary key
