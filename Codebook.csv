@@ -11,7 +11,7 @@ MovieCharacters,Movie ID,Unique identifier of the movie,Text,,Foreign key
 MovieCharacters,Movie Title,Title of the movie,Text,,
 MovieCharacters,Gender,The gender of the character from IMDb,Text,,
 MovieCharacters,Position,The sequence of the character in the credits section,Numeric,,
-MovieLines,Line ID,Unique identifier of the dialogue,Text,,Primary Key
+MovieLines,Line ID,Unique identifier of the dialogue,Text,,Primary key
 MovieLines,Character ID,Unique identifier of the movie character,Text,,Foreign key
 MovieLines,Movie ID,Unique identifier of the movie,Text,,Foreign key
 MovieLines,Character Name,First name of the character,Text,,
