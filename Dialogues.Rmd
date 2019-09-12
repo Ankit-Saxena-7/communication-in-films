@@ -46,9 +46,10 @@ The folders are organized as follows:
 ### Coding standards
 
 * Entities like variables and functions have been named using camel case convention
-* Local variables have been prefixed using 'v'
-* Global variables have been prefixed using 'g'
-* Talbles have been prefixed using 'tab'
+* Local variables have been prefixed using 'v' (example: vVariable)
+* Global variables have been prefixed using 'g' (example: gVariable)
+* Paramters to functions have been prefixed using 'p' (example: pParameter)
+* Talbles have been prefixed using 'tab' (example: tabDataTable)
 
 ### Importing the Data
 
