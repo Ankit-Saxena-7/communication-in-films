@@ -12,7 +12,7 @@ Effective dialogue between movie characters is one of the most important tools a
 
 ### The Data
 
-The data set has been been extracted by the Cornell Movie - Dialogs Corpus that contains 220,579 conversational exchanges between 9,035 characters from 617 movies. In total, there are 304,713 dialogues taken from raw movie scripts. The entire data set is avaliable in Kaggle's website and can be accessed through this [link](https://www.kaggle.com/rajathmc/cornell-moviedialog-corpus).
+The data set has been been extracted by the Cornell Movie - Dialogs Corpus that contains 220,579 conversational exchanges between 9,035 characters from 617 movies. In total, there are 304,713 dialogues taken from raw movie scripts. The entire data set is available in Kaggle's website and can be accessed through this [link](https://www.kaggle.com/rajathmc/cornell-moviedialog-corpus).
 
 The data has been systematically organized into five different tables in CSV format. Their contents are described below:
 
@@ -21,21 +21,17 @@ The data has been systematically organized into five different tables in CSV for
 * _MovieCharacters.csv_: All movie characters uniquely identified by the Character ID column
 
 * _MovieLines.csv_: The actual text of each dialogue spoken uniquely identified by the Line ID column
-  
+
 * _MovieConversations.csv_: The structure of all conversations uniquely identified by the Character ID of the first character in the conversation, Character ID of the second character, and the Movie ID column
 
 * _MovieRawScriptURL.csv_: The uniform resource locator (URL) of all the raw scripts
 
 ### Repository Structure
 
-The following repository path will be used as the root folder for the purpose of this analysis. Note that it may be different for otehr users:
-
-> _/Users/ankitsaxena/COMM-783/communication-in-films_
-
-The folders are organized as follows:
+The folders in the repository are organized as follows:
 
 * _communication-in-films_: Root folder
-  + _Dialogues.Rmb_: The R Markdown file for this project
+  + _Dialogues.mb_: The Markdown file for this project
   + _Data_
     + _MovieTitles.csv_
     + _MovieCharacters.csv_
@@ -48,7 +44,14 @@ The folders are organized as follows:
 * Entities like variables and functions have been named using camel case convention
 * Local variables have been prefixed using 'v'
 * Global variables have been prefixed using 'g'
-* Talbles have been prefixed using 'tab'
+* Tables have been prefixed using 'tab'
+
+### Importing Packages
+The following packages will need to be imported for the analysis:
+
+```python
+import pandas as pd
+```
 
 ### Importing the Data
 
@@ -56,75 +59,55 @@ Run the following scripts to import the data from your repository and check the 
 
 __Movie Titles__
 
-```r
-tabMovieTitles <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieTitles.csv", header=FALSE, sep="|")
+```python
+tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|")
 ```
 
 
-```r
-dim(tabMovieTitles)
-```
-
-```
-## [1] 617   6
+```python
+print(tabMovieTitles.shape)
 ```
 
 __Movie Characters__
 
-```r
-tabMovieCharacters <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieCharacters.csv", header=FALSE, sep="|")
+```python
+tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|")
 ```
 
 
-```r
-dim(tabMovieCharacters)
-```
-
-```
-## [1] 9035    6
+```python
+print(tabMovieCharacters.shape)
 ```
 
 __Movie Lines__
 
-```r
-tabMovieLines <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieLines.csv", header=FALSE, sep="|", quote="")
+```python
+tabMovieLines = pd.read_csv(file="Data/MovieLines.csv", sep="|")
 ```
 
 
-```r
-dim(tabMovieLines)
-```
-
-```
-## [1] 304732      5
+```python
+print(tabMovieLines.shape)
 ```
 
 __Movie Conversations__
 
-```r
-tabMovieConversations <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieConversations.csv", header=FALSE, sep="|")
+```python
+tabMovieConversations = pd.read_csv(file="Data/MovieConversations.csv", sep="|")
 ```
 
 
-```r
-dim(tabMovieConversations)
-```
-
-```
-## [1] 83097     4
+```python
+print(tabMovieConversations.shape)
 ```
 
 __Movie Raw Script URLs__
 
-```r
-tabMovieRawScriptURLs <- read.csv(file="/Users/ankitsaxena/COMM-783/communication-in-films/Data/MovieRawScriptURLs.csv", header=FALSE, sep="|")
+```python
+tabMovieRawScriptURLs = pd.read_csv(file="Data/MovieRawScriptURLs.csv", sep="|")
 ```
 
 
-```r
-dim(tabMovieRawScriptURLs)
-```
-
-```
-## [1] 617   3
+```python
+print(tabMovieRawScriptURLs.shape)
 ```
