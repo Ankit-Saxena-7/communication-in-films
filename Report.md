@@ -46,7 +46,18 @@ The folders in the repository are organized as follows:
 * Global variables have been prefixed using 'g'
 * Tables have been prefixed using 'tab'
 
+### Data Cleaning
+
+The following steps were performed on the _MovieLines.csv_ file when cleaning the data:
+* The default delimiter from the data source was this combination of characters: ' +++$+++ '. This has been changed to the pipe character '|'.
+* Column five in _MovieLines.csv_ has spurious pipe characters which will interfere with the data loading step. Those have been deleted without a loss of valuable data.
+* There is one spurious caret character '^' as a number separator. That has been removed without interfering with the number.
+* To express emphasis on certain words, certain HTML tags have been used (like '\<i\> ... \</i\>','\<u\> ... \</u\>', '\<b\> ... \</b\>', '\<html\> ... \</html\>, '\<pre\> ... \</pre\>'), which can interfere with our analysis. Those have been removed as that information is not relevant to our analysis.
+
+Once these steps are completed, we are left with 303,249 lines of dialogues.
+
 ### Importing Packages
+
 The following packages will need to be imported for the analysis:
 
 ```python
@@ -60,7 +71,7 @@ Run the following scripts to import the data from your repository and check the 
 __Movie Titles__
 
 ```python
-tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|")
+tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|", header=None)
 ```
 
 
@@ -71,7 +82,7 @@ print(tabMovieTitles.shape)
 __Movie Characters__
 
 ```python
-tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|")
+tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|", header=None)
 ```
 
 
@@ -82,7 +93,7 @@ print(tabMovieCharacters.shape)
 __Movie Lines__
 
 ```python
-tabMovieLines = pd.read_csv(file="Data/MovieLines.csv", sep="|")
+tabMovieLines = pd.read_csv(file="Data/MovieLines.csv", sep="|", header=None)
 ```
 
 
@@ -93,7 +104,7 @@ print(tabMovieLines.shape)
 __Movie Conversations__
 
 ```python
-tabMovieConversations = pd.read_csv(file="Data/MovieConversations.csv", sep="|")
+tabMovieConversations = pd.read_csv(file="Data/MovieConversations.csv", sep="|", header=None)
 ```
 
 
@@ -104,7 +115,7 @@ print(tabMovieConversations.shape)
 __Movie Raw Script URLs__
 
 ```python
-tabMovieRawScriptURLs = pd.read_csv(file="Data/MovieRawScriptURLs.csv", sep="|")
+tabMovieRawScriptURLs = pd.read_csv(file="Data/MovieRawScriptURLs.csv", sep="|", header=None)
 ```
 
 
