@@ -39,11 +39,18 @@ The folders in the repository are organized as follows:
     + _MovieConversations.csv_
     + _MovieRawScriptURLs.csv_
 
+#### Entity Relationship Diagram
+
+The tables are related in the following manner:
+
+<img src="Assets/ERD.png"
+     alt="ERD"
+     style="width: 800px; height: 300px;" />
+
 ### Coding standards
 
 * Entities like variables and functions have been named using camel case convention
 * Local variables have been prefixed using 'v'
-* Global variables have been prefixed using 'g'
 * Tables have been prefixed using 'tab'
 
 ### Data Cleaning
@@ -71,7 +78,7 @@ Run the following scripts to import the data from your repository and check the 
 __Movie Titles__
 
 ```python
-tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|", header=None)
+tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|", encoding="ISO-8859-1", header=None)
 ```
 
 
@@ -82,7 +89,7 @@ print(tabMovieTitles.shape)
 __Movie Characters__
 
 ```python
-tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|", header=None)
+tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None)
 ```
 
 
@@ -93,7 +100,7 @@ print(tabMovieCharacters.shape)
 __Movie Lines__
 
 ```python
-tabMovieLines = pd.read_csv(file="Data/MovieLines.csv", sep="|", header=None)
+tabMovieLines = pd.read_csv(file="Data/MovieLines.csv", sep="|", encoding="ISO-8859-1", header=None)
 ```
 
 
@@ -104,7 +111,7 @@ print(tabMovieLines.shape)
 __Movie Conversations__
 
 ```python
-tabMovieConversations = pd.read_csv(file="Data/MovieConversations.csv", sep="|", header=None)
+tabMovieConversations = pd.read_csv(file="Data/MovieConversations.csv", encoding="ISO-8859-1", sep="|", header=None)
 ```
 
 
@@ -115,7 +122,7 @@ print(tabMovieConversations.shape)
 __Movie Raw Script URLs__
 
 ```python
-tabMovieRawScriptURLs = pd.read_csv(file="Data/MovieRawScriptURLs.csv", sep="|", header=None)
+tabMovieRawScriptURLs = pd.read_csv(file="Data/MovieRawScriptURLs.csv", encoding="ISO-8859-1", sep="|", header=None)
 ```
 
 
