@@ -78,54 +78,119 @@ Run the following scripts to import the data from your repository and check the 
 __Movie Titles__
 
 ```python
-tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|", encoding="ISO-8859-1", header=None)
+tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Movie ID", "Movie Title", "Year", "IMDb Rating", "IMDb Votes", "Genres"])
 ```
 
+Setting primary key
+```python
+tabMovieTitles.set_index("Movie ID")
+```
 
+Table shape
 ```python
 print(tabMovieTitles.shape)
+```
+
+Table columns
+```python
+print(tabMovieTitles.columns)
+```
+
+Table information
+```python
+print(tabMovieTitles.info())
 ```
 
 __Movie Characters__
 
 ```python
-tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None)
+tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Character ID", "Character Name", "Movie ID", "Movie Title", "Gender", "Position"])
 ```
 
+Setting primary key
+```python
+tabMovieCharacters.set_index("Character ID")
+```
 
+Table shape
 ```python
 print(tabMovieCharacters.shape)
+```
+
+Table columns
+```python
+print(tabMovieCharacters.columns)
+```
+
+Table information
+```python
+print(tabMovieCharacters.info())
 ```
 
 __Movie Lines__
 
 ```python
-tabMovieLines = pd.read_csv(file="Data/MovieLines.csv", sep="|", encoding="ISO-8859-1", header=None)
+tabMovieLines = pd.read_csv(file="Data/MovieLines.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Line ID", "Character ID", "Movie ID", "Character Name", "Dialogue"])
 ```
 
+Setting primary key
+```python
+tabMovieLines.set_index("Line ID")
+```
 
+Table shape
 ```python
 print(tabMovieLines.shape)
+```
+
+Table columns
+```python
+print(tabMovieLines.columns)
+```
+
+Table information
+```python
+print(tabMovieLines.info())
 ```
 
 __Movie Conversations__
 
 ```python
-tabMovieConversations = pd.read_csv(file="Data/MovieConversations.csv", encoding="ISO-8859-1", sep="|", header=None)
+tabMovieConversations = pd.read_csv(file="Data/MovieConversations.csv", encoding="ISO-8859-1", sep="|", header=None, names=["Character ID", "First Character", "ID Second", "Movie ID", "Conversation"])
 ```
 
+Setting primary key
+```python
+tabMovieConversations.set_index("Conversation")
+```
 
+Table shape
 ```python
 print(tabMovieConversations.shape)
+```
+
+Table columns
+```python
+print(tabMovieConversations.columns)
+```
+
+Table information
+```python
+print(tabMovieConversations.info())
 ```
 
 __Movie Raw Script URLs__
 
 ```python
-tabMovieRawScriptURLs = pd.read_csv(file="Data/MovieRawScriptURLs.csv", encoding="ISO-8859-1", sep="|", header=None)
+tabMovieRawScriptURLs = pd.read_csv(file="Data/MovieRawScriptURLs.csv", encoding="ISO-8859-1", sep="|", header=None, names=["Movie ID", "Movie Title", "Raw Script URL"])
 ```
 
-
+Setting primary key
 ```python
-print(tabMovieRawScriptURLs.shape)
+tabMovieRawScriptURLs.set_index("Raw Script URL")
+```
+
+Table shape
+```python
+print(tabMovieConversations.shape)
 ```
