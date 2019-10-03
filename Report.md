@@ -53,7 +53,7 @@ The tables are related in the following manner:
 * Local variables have been prefixed using 'v'
 * Tables have been prefixed using 'tab'
 
-### Data Cleaning
+### Data Cleaning (Pre-load)
 
 The following steps were performed on the _MovieLines.csv_ file when cleaning the data:
 * The default delimiter from the data source was this combination of characters: ' +++$+++ '. This has been changed to the pipe character '|'.
@@ -193,4 +193,18 @@ tabMovieRawScriptURLs.set_index("Raw Script URL")
 Table shape
 ```python
 print(tabMovieConversations.shape)
+```
+
+### Data Cleaning (Post-load)
+
+* _tabMovieTitles_ has certain years that are appended with '/I' characters at the end. These have been trimmed and the year column has been converted to date-time format
+
+Trimming trailing characters
+```python
+tabMovieTitles['Year'] = tabMovieTitles['Year'].map(lambda x: x.rstrip('/I'))
+```
+
+Converting column to date-time format
+```python
+tabMovieTitles['Year'] = pd.to_datetime(tabMovieTitles['Year'], format='%Y')
 ```
