@@ -83,7 +83,7 @@ tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|", encoding="ISO
 
 Setting primary key
 ```python
-tabMovieTitles.set_index("Movie ID")
+tabMovieTitles = tabMovieTitles.set_index("Movie ID")
 ```
 
 Table shape
@@ -109,7 +109,7 @@ tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|", encod
 
 Setting primary key
 ```python
-tabMovieCharacters.set_index("Character ID")
+tabMovieCharacters = tabMovieCharacters.set_index("Character ID")
 ```
 
 Table shape
@@ -135,7 +135,7 @@ tabMovieLines = pd.read_csv(file="Data/MovieLines.csv", sep="|", encoding="ISO-8
 
 Setting primary key
 ```python
-tabMovieLines.set_index("Line ID")
+tabMovieLines = tabMovieLines.set_index("Line ID")
 ```
 
 Table shape
@@ -161,7 +161,7 @@ tabMovieConversations = pd.read_csv(file="Data/MovieConversations.csv", encoding
 
 Setting primary key
 ```python
-tabMovieConversations.set_index("Conversation")
+tabMovieConversations = tabMovieConversations.set_index("Conversation")
 ```
 
 Table shape
@@ -187,7 +187,7 @@ tabMovieRawScriptURLs = pd.read_csv(file="Data/MovieRawScriptURLs.csv", encoding
 
 Setting primary key
 ```python
-tabMovieRawScriptURLs.set_index("Raw Script URL")
+tabMovieRawScriptURLs = tabMovieRawScriptURLs.set_index("Raw Script URL")
 ```
 
 Table shape
