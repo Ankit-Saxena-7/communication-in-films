@@ -12,8 +12,8 @@ import pandas as pd
 
 
 
-tabMovieCharacters = pd.read_csv("Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Character ID", "Character Name", "Movie ID", "Movie Title", "Gender", "Position"])
-tabMovieCharacters = tabMovieCharacters.set_index("Character ID")
+tabMovieCharacters = pd.read_csv("Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Character ID", "Character Name", "Movie ID", "Movie Title", "Gender", "Position"], index_col='Character ID')
+#tabMovieCharacters = tabMovieCharacters.set_index("Character ID")
 print(tabMovieCharacters.info())
 print(tabMovieCharacters.Gender.unique())
 

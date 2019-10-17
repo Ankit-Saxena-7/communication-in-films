@@ -1,8 +1,10 @@
 ---
 title: "Identifying Patterns and Biases in Film Dialogues_PatternsInFilmDialogues_OSF_PreReg#"
 author: "Ankit Saxena"
-date: "October 15, 2019"
-output: pdf_document
+date: "October 17, 2019"
+output:
+  html_document:
+    keep_md: yes
 ---
 
 ## Study Information
@@ -27,7 +29,7 @@ List authors and affiliations as applicable. Placing a number or letter in upwar
 
 Author Ankit Saxena^1^
 
-^1^ University of Pennsylvania
+<sup>1</sup> University of Pennsylvania
 
 ### 3. Description
 

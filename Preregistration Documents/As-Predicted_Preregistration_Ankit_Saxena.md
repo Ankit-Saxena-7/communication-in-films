@@ -1,6 +1,9 @@
-conversation---
+---
 title: 'Identifying Patterns and Biases in Film Dialogues_PatternsInFilmDialogues_As-Predicted_PreReg#'
-output: pdf_document
+output:
+  html_document:
+    keep_md: yes
+
 ---
 
 ##Authors

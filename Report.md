@@ -78,12 +78,7 @@ Run the following scripts to import the data from your repository and check the 
 __Movie Titles__
 
 ```python
-tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Movie ID", "Movie Title", "Year", "IMDb Rating", "IMDb Votes", "Genres"])
-```
-
-Setting primary key
-```python
-tabMovieTitles = tabMovieTitles.set_index("Movie ID")
+tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Movie ID", "Movie Title", "Year", "IMDb Rating", "IMDb Votes", "Genres"], index_col='Movie ID')
 ```
 
 Table shape
@@ -104,12 +99,7 @@ print(tabMovieTitles.info())
 __Movie Characters__
 
 ```python
-tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Character ID", "Character Name", "Movie ID", "Movie Title", "Gender", "Position"])
-```
-
-Setting primary key
-```python
-tabMovieCharacters = tabMovieCharacters.set_index("Character ID")
+tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Character ID", "Character Name", "Movie ID", "Movie Title", "Gender", "Position"], index_col='Character ID')
 ```
 
 Table shape
@@ -208,3 +198,5 @@ Converting column to date-time format
 ```python
 tabMovieTitles['Year'] = pd.to_datetime(tabMovieTitles['Year'], format='%Y')
 ```
+
+### Merging the Dataset
