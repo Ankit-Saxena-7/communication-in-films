@@ -7,30 +7,31 @@ tabMovieLines = pd.read_csv("Data/MovieLines.csv", sep="|", encoding="ISO-8859-1
 
 tabMovieCharacters = pd.read_csv("Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Character ID", "Character Name", "Movie ID", "Movie Title", "Gender", "Position"])
 
-merged = pd.merge(tabMovieLines, tabMovieCharacters[['Character ID', 'Character Name', 'Gender', 'Position']], on='Character ID')
+merged1 = pd.merge(tabMovieLines, tabMovieCharacters[['Character ID', 'Character Name', 'Gender', 'Position']], on='Character ID')
 
-merged = merged.drop(['Character Name_x'], axis=1)
-merged = merged.rename(columns = {'Character Name_y': 'Character Name'})
-print(merged.columns)
+merged1 = merged1.drop(['Character Name_x'], axis=1)
+merged1 = merged1.rename(columns = {'Character Name_y': 'Character Name'})
+print(merged1.columns)
 
 tabMovieTitles = pd.read_csv("Data/MovieTitles.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Movie ID", "Movie Title", "Year", "IMDb Rating", "IMDb Votes", "Genres"])
 
 tabMovieTitles['Year'] = tabMovieTitles['Year'].map(lambda x: x.rstrip('/I'))
 tabMovieTitles['Year'] = pd.to_datetime(tabMovieTitles['Year'], format='%Y')
 
-merged2 = pd.merge(merged, tabMovieTitles, on='Movie ID')
-print(merged2.columns)
+merged1 = pd.merge(merged1, tabMovieTitles, on='Movie ID')
+print(merged1.columns)
 
 tabMovieConversations = pd.read_csv("Data/MovieConversations.csv", encoding="ISO-8859-1", sep="|", header=None, names=["ID First", "ID Second", "Movie ID", "Conversation"])
 print(tabMovieConversations.head())
 
 tabMovieRawScriptURLs = pd.read_csv("Data/MovieRawScriptURLs.csv", encoding="ISO-8859-1", sep="|", header=None, names=["Movie ID", "Movie Title", "Raw Script URL"])
 
-tabMovieLinesFull = pd.merge(merged2, tabMovieRawScriptURLs[['Movie ID', 'Raw Script URL']], on='Movie ID')
+merged1 = pd.merge(merged1, tabMovieRawScriptURLs[['Movie ID', 'Raw Script URL']], on='Movie ID')
 
-tabMovieLinesFull = tabMovieLinesFull.set_index('Line ID')
+merged1 = merged1.set_index('Line ID')
 
-print(tabMovieLinesFull.shape)
+print("SHAPE")
+print(merged1.shape)
 
 # Merging complete
 

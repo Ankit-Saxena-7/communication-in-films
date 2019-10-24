@@ -201,15 +201,15 @@ print(tabMovieCharacters.Gender.value_counts())
 Merging the datasets _tabMovieTitles_, _tabMovieCharacters_, _tabMovieLines_, and _tabMovieRawScriptURLs_ for easier processing. We're using _tabMovieLines_ as the primary table because it has the most granular data and performing 'left join' on it with the other tables. The table _tabMovieConversations_ will be kept separate as it depicts a different type of information.
 
 ```python
-merged1 = pd.merge(tabMovieLines, tabMovieCharacters[['Character ID', 'Character Name', 'Gender', 'Position']], on='Character ID')
+tabMovieLinesFull = pd.merge(tabMovieLines, tabMovieCharacters[['Character ID', 'Character Name', 'Gender', 'Position']], on='Character ID')
 
-merged1 = merged1.drop(['Character Name_x'], axis=1)
+tabMovieLinesFull = tabMovieLinesFull.drop(['Character Name_x'], axis=1)
 
-merged1 = merged1.rename(columns = {'Character Name_y': 'Character Name'})
+tabMovieLinesFull = tabMovieLinesFull.rename(columns = {'Character Name_y': 'Character Name'})
 
-merged2 = pd.merge(merged1, tabMovieTitles, on='Movie ID')
+tabMovieLinesFull = pd.merge(tabMovieLinesFull, tabMovieTitles, on='Movie ID')
 
-tabMovieLinesFull = pd.merge(merged2, tabMovieRawScriptURLs[['Movie ID', 'Raw Script URL']], on='Movie ID')
+tabMovieLinesFull = pd.merge(tabMovieLinesFull, tabMovieRawScriptURLs[['Movie ID', 'Raw Script URL']], on='Movie ID')
 
 tabMovieLinesFull = tabMovieLinesFull.set_index('Line ID')
 
