@@ -184,6 +184,18 @@ Converting column to date-time format
 tabMovieTitles['Year'] = pd.to_datetime(tabMovieTitles['Year'], format='%Y')
 ```
 
+* _tabMovieCharacters_ has multiple formats of expressing males ('M' and 'm') and females ('F', 'f')  as shown below. We will reconcile these values to only 'm' for males and 'f' for females.
+
+```python
+print(tabMovieCharacters.Gender.value_counts())
+
+tabMovieCharacters.loc[tabMovieCharacters['Gender'] == 'M', 'Gender'] = 'm'
+
+tabMovieCharacters.loc[tabMovieCharacters['Gender'] == 'F', 'Gender'] = 'f'
+
+print(tabMovieCharacters.Gender.value_counts())
+```
+
 ### Merging the Dataset
 
 Merging the datasets _tabMovieTitles_, _tabMovieCharacters_, _tabMovieLines_, and _tabMovieRawScriptURLs_ for easier processing. We're using _tabMovieLines_ as the primary table because it has the most granular data and performing 'left join' on it with the other tables. The table _tabMovieConversations_ will be kept separate as it depicts a different type of information.

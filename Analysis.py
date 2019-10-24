@@ -1,16 +1,11 @@
 import pandas as pd
 
-#tabMovieCharacters = pd.read_csv("Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Character ID", "Character Name", "Movie ID", "Movie Title", "Gender", "Position"], index_col='Character ID')
 #print(tabMovieCharacters.Gender.unique())
 #print(tabMovieCharacters.loc[tabMovieCharacters.Gender == '?', ["Gender", "Character Name"]])
 
-#tabMovieRawScriptURLs = pd.read_csv("Data/MovieRawScriptURLs.csv", sep="|", encoding="ISO-8859-1", header=None)
-#print(tabMovieRawScriptURLs.shape)
-
 tabMovieLines = pd.read_csv("Data/MovieLines.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Line ID", "Character ID", "Movie ID", "Character Name", "Dialogue"])
-#print(tabMovieLines.head())
+
 tabMovieCharacters = pd.read_csv("Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Character ID", "Character Name", "Movie ID", "Movie Title", "Gender", "Position"])
-#print(tabMovieCharacters.head())
 
 merged = pd.merge(tabMovieLines, tabMovieCharacters[['Character ID', 'Character Name', 'Gender', 'Position']], on='Character ID')
 
@@ -20,9 +15,6 @@ print(merged.columns)
 
 tabMovieTitles = pd.read_csv("Data/MovieTitles.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Movie ID", "Movie Title", "Year", "IMDb Rating", "IMDb Votes", "Genres"])
 
-#print(tabMovieTitles.loc[tabMovieTitles['Year'] == '1989/I']["Movie Title"])
-#print(tabMovieTitles.loc[tabMovieTitles.Year.str.contains('/I'), ["Year", "Movie Title"]])
-#print(tabMovieTitles.Year.str.contains('/I'))
 tabMovieTitles['Year'] = tabMovieTitles['Year'].map(lambda x: x.rstrip('/I'))
 tabMovieTitles['Year'] = pd.to_datetime(tabMovieTitles['Year'], format='%Y')
 
@@ -40,6 +32,11 @@ tabMovieLinesFull = tabMovieLinesFull.set_index('Line ID')
 
 print(tabMovieLinesFull.shape)
 
-
-
 # Merging complete
+
+print(tabMovieCharacters.Gender.value_counts())
+
+tabMovieCharacters.loc[tabMovieCharacters['Gender'] == 'M', 'Gender'] = 'm'
+tabMovieCharacters.loc[tabMovieCharacters['Gender'] == 'F', 'Gender'] = 'f'
+
+print(tabMovieCharacters.Gender.value_counts())
