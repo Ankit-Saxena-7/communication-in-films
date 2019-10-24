@@ -199,6 +199,8 @@ merged2 = pd.merge(merged1, tabMovieTitles, on='Movie ID')
 
 tabMovieLinesFull = pd.merge(merged2, tabMovieRawScriptURLs[['Movie ID', 'Raw Script URL']], on='Movie ID')
 
+tabMovieLinesFull = tabMovieLinesFull.set_index('Line ID')
+
 print(tabMovieLinesFull.shape)
 ```
-The merged dataset _tabMovieLinesFull_ has 303,249 records and 13 columns.
+The merged dataset _tabMovieLinesFull_ has 303,249 records and 12 attributes and 'Line ID' column as the primary index.

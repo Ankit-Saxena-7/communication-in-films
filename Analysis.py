@@ -36,6 +36,10 @@ tabMovieRawScriptURLs = pd.read_csv("Data/MovieRawScriptURLs.csv", encoding="ISO
 
 tabMovieLinesFull = pd.merge(merged2, tabMovieRawScriptURLs[['Movie ID', 'Raw Script URL']], on='Movie ID')
 
+tabMovieLinesFull = tabMovieLinesFull.set_index('Line ID')
+
 print(tabMovieLinesFull.shape)
+
+
 
 # Merging complete
