@@ -78,7 +78,7 @@ Run the following scripts to import the data from your repository and check the 
 __Movie Titles__
 
 ```python
-tabMovieTitles = pd.read_csv(file="Data/MovieTitles.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Movie ID", "Movie Title", "Year", "IMDb Rating", "IMDb Votes", "Genres"], index_col='Movie ID')
+tabMovieTitles = pd.read_csv("Data/MovieTitles.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Movie ID", "Movie Title", "Year", "IMDb Rating", "IMDb Votes", "Genres"])
 ```
 
 Table shape
@@ -99,7 +99,7 @@ print(tabMovieTitles.info())
 __Movie Characters__
 
 ```python
-tabMovieCharacters = pd.read_csv(file="Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Character ID", "Character Name", "Movie ID", "Movie Title", "Gender", "Position"], index_col='Character ID')
+tabMovieCharacters = pd.read_csv("Data/MovieCharacters.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Character ID", "Character Name", "Movie ID", "Movie Title", "Gender", "Position"])
 ```
 
 Table shape
@@ -120,12 +120,7 @@ print(tabMovieCharacters.info())
 __Movie Lines__
 
 ```python
-tabMovieLines = pd.read_csv(file="Data/MovieLines.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Line ID", "Character ID", "Movie ID", "Character Name", "Dialogue"])
-```
-
-Setting primary key
-```python
-tabMovieLines = tabMovieLines.set_index("Line ID")
+tabMovieLines = pd.read_csv("Data/MovieLines.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Line ID", "Character ID", "Movie ID", "Character Name", "Dialogue"])
 ```
 
 Table shape
@@ -146,12 +141,7 @@ print(tabMovieLines.info())
 __Movie Conversations__
 
 ```python
-tabMovieConversations = pd.read_csv(file="Data/MovieConversations.csv", encoding="ISO-8859-1", sep="|", header=None, names=["Character ID", "First Character", "ID Second", "Movie ID", "Conversation"])
-```
-
-Setting primary key
-```python
-tabMovieConversations = tabMovieConversations.set_index("Conversation")
+tabMovieConversations = pd.read_csv("Data/MovieConversations.csv", encoding="ISO-8859-1", sep="|", header=None, names=["ID First", "ID Second", "Movie ID", "Conversation"])
 ```
 
 Table shape
@@ -172,12 +162,7 @@ print(tabMovieConversations.info())
 __Movie Raw Script URLs__
 
 ```python
-tabMovieRawScriptURLs = pd.read_csv(file="Data/MovieRawScriptURLs.csv", encoding="ISO-8859-1", sep="|", header=None, names=["Movie ID", "Movie Title", "Raw Script URL"])
-```
-
-Setting primary key
-```python
-tabMovieRawScriptURLs = tabMovieRawScriptURLs.set_index("Raw Script URL")
+tabMovieRawScriptURLs = pd.read_csv("Data/MovieRawScriptURLs.csv", encoding="ISO-8859-1", sep="|", header=None, names=["Movie ID", "Movie Title", "Raw Script URL"])
 ```
 
 Table shape
@@ -200,3 +185,20 @@ tabMovieTitles['Year'] = pd.to_datetime(tabMovieTitles['Year'], format='%Y')
 ```
 
 ### Merging the Dataset
+
+Merging the datasets _tabMovieTitles_, _tabMovieCharacters_, _tabMovieLines_, and _tabMovieRawScriptURLs_ for easier processing. We're using _tabMovieLines_ as the primary table because it has the most granular data and performing 'left join' on it with the other tables. The table _tabMovieConversations_ will be kept separate as it depicts a different type of information.
+
+```python
+merged1 = pd.merge(tabMovieLines, tabMovieCharacters[['Character ID', 'Character Name', 'Gender', 'Position']], on='Character ID')
+
+merged1 = merged1.drop(['Character Name_x'], axis=1)
+
+merged1 = merged1.rename(columns = {'Character Name_y': 'Character Name'})
+
+merged2 = pd.merge(merged1, tabMovieTitles, on='Movie ID')
+
+tabMovieLinesFull = pd.merge(merged2, tabMovieRawScriptURLs[['Movie ID', 'Raw Script URL']], on='Movie ID')
+
+print(tabMovieLinesFull.shape)
+```
+The merged dataset _tabMovieLinesFull_ has 303,249 records and 13 columns.
