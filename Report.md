@@ -216,3 +216,160 @@ tabMovieLinesFull = tabMovieLinesFull.set_index('Line ID')
 print(tabMovieLinesFull.shape)
 ```
 The merged dataset _tabMovieLinesFull_ has 303,249 records and 12 attributes and 'Line ID' column as the primary index.
+
+#### Grouping by Gender
+
+We will first calculate quantitative properties of individual dialogues for our analysis. Then, we will group the data by gender to discover patterns.
+
+Calculating quantitative properties like length and total words:
+```python
+tabMovieLinesFull['Release Year'] = pd.DatetimeIndex(tabMovieLinesFull['Year']).year
+
+tabMovieLinesFull['Dialogue Length'] = tabMovieLinesFull['Dialogue'].str.len()
+
+tabMovieLinesFull['Dialogue Words'] = tabMovieLinesFull['Dialogue'].str.split().str.len()
+```
+
+Grouping into gender groups:
+```python
+tabGenderGroups = tabMovieLinesFull[tabMovieLinesFull.Gender != '?'].groupby('Gender').agg({
+    'Character ID':['nunique'],
+    'Dialogue Length':['sum', 'mean'],
+    'Dialogue Words':['sum', 'mean']
+     })
+
+tabGenderGroups.reset_index(inplace=True)
+
+tabGenderGroups.columns = ['Gender', 'Total Characters', 'Cumulative Sentence Length', 'Avg Sentence Length', 'Cumulative Words', 'Avg Words Per Sentence']
+```
+
+#### Visully Exploratoring the Data
+
+The following charts are visual representations of the data that is available to us after excluding rows without clearly specified gender.
+
+Yearly dialogues:
+```python
+YearlyDialogues = tabMovieLinesFull.groupby('Release Year').agg({
+    'Dialogue': ['count']
+    })
+
+YearlyDialogues.columns = ['Total Dialogues']
+
+print(YearlyDialogues.head())
+
+YearlyDialogues.reset_index(inplace=True)
+
+plt.bar(YearlyDialogues['Release Year'], YearlyDialogues['Total Dialogues'], align='center')
+locations, labels = xticks()
+plt.xlabel('Release Year')
+plt.ylabel('Total Dialogues')
+plt.title('Dialogues Across Release Years')
+plt.xticks(locations, labels)
+plt.show()
+```
+
+<img src="Assets/Visualizations/Yearly Dialogues.png"
+     alt="ERD"
+     style="width: 800px; height: 300px;" />
+
+Yearly movies:
+```python
+YearlyMovies = tabMovieLinesFull.groupby('Release Year').agg({
+    'Movie ID': [pd.Series.nunique]
+    })
+
+YearlyMovies.columns = ['Total Movies']
+
+print(YearlyMovies.head())
+
+YearlyMovies.reset_index(inplace=True)
+
+plt.bar(YearlyMovies['Release Year'], YearlyMovies['Total Movies'], align='center')
+locations, labels = xticks()
+plt.xlabel('Release Year')
+plt.ylabel('Total Movies')
+plt.title('Movies Across Release Years')
+plt.xticks(locations, labels)
+plt.show()
+```
+
+<img src="Assets/Visualizations/Yearly Movies.png"
+    alt="ERD"
+    style="width: 800px; height: 300px;" />
+
+Total genders:
+```python
+plt.bar(tabGenderGroups['Gender'], tabGenderGroups['Total Characters'], align='center', width=0.4)
+locations, labels = xticks()
+plt.xlabel('Gender')
+plt.ylabel('Total Characters')
+plt.title('Character Genders')
+plt.xticks(locations, ['Female', 'Males'])
+plt.show()
+```
+
+<img src="Assets/Visualizations/Character Genders.png"
+    alt="ERD"
+    style="width: 800px; height: 300px;" />
+
+#### Visualizing Gender Differences
+
+Cumulative sentence length:
+```python
+plt.bar(tabGenderGroups['Gender'], tabGenderGroups['Cumulative Sentence Length'], align='center', width=0.4)
+locations, labels = xticks()
+plt.xlabel('Gender')
+plt.ylabel('Total Characters')
+plt.title('Cumulative Sentence Length For Genders')
+plt.xticks(locations, ['Female', 'Males'])
+plt.show()
+```
+
+<img src="Assets/Visualizations/Cumulative Sentence Length.png"
+    alt="ERD"
+    style="width: 800px; height: 300px;" />
+
+Average sentence length:
+```python
+plt.bar(tabGenderGroups['Gender'], tabGenderGroups['Avg Sentence Length'], align='center', width=0.4)
+locations, labels = xticks()
+plt.xlabel('Gender')
+plt.ylabel('Total Characters')
+plt.title('Average Sentence Length For Genders')
+plt.xticks(locations, ['Female', 'Males'])
+plt.show()
+```
+
+<img src="Assets/Visualizations/Avg Sentence Length.png"
+    alt="ERD"
+    style="width: 800px; height: 300px;" />
+
+Cumulative words:
+```python
+plt.bar(tabGenderGroups['Gender'], tabGenderGroups['Cumulative Words'], align='center', width=0.4)
+locations, labels = xticks()
+plt.xlabel('Gender')
+plt.ylabel('Total Words')
+plt.title('Cumulative Words For Genders')
+plt.xticks(locations, ['Female', 'Males'])
+plt.show()
+```
+
+<img src="Assets/Visualizations/Cumulative Words.png"
+    alt="ERD"
+    style="width: 800px; height: 300px;" />
+
+Average words per sentence:
+```python
+plt.bar(tabGenderGroups['Gender'], tabGenderGroups['Avg Words Per Sentence'], align='center', width=0.4)
+locations, labels = xticks()
+plt.xlabel('Gender')
+plt.ylabel('Total Words')
+plt.title('Average Words Per Sentence For Genders')
+plt.xticks(locations, ['Female', 'Males'])
+plt.show()
+```
+
+<img src="Assets/Visualizations/Avg Words Per Sentence.png"
+    alt="ERD"
+    style="width: 800px; height: 300px;" />
