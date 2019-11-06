@@ -69,6 +69,8 @@ The following packages will need to be imported for the analysis:
 
 ```python
 import pandas as pd
+from matplotlib import pyplot as plt
+from matplotlib.pyplot import xticks
 ```
 
 ### Importing the Data
