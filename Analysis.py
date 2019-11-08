@@ -1,6 +1,7 @@
 import pandas as pd
 from matplotlib import pyplot as plt
 from matplotlib.pyplot import xticks
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 tabMovieLines = pd.read_csv("Data/MovieLines.csv", sep="|", encoding="ISO-8859-1", header=None, names=["Line ID", "Character ID", "Movie ID", "Character Name", "Dialogue"])
 
@@ -76,7 +77,7 @@ plt.xlabel('Release Year')
 plt.ylabel('Total Dialogues')
 plt.title('Dialogues Across Release Years')
 plt.xticks(locations, labels)
-plt.show()
+#plt.show()
 
 
 # Yearly Movies
@@ -96,7 +97,7 @@ plt.xlabel('Release Year')
 plt.ylabel('Total Movies')
 plt.title('Movies Across Release Years')
 plt.xticks(locations, labels)
-plt.show()
+#plt.show()
 
 # Genders
 
@@ -106,7 +107,7 @@ plt.xlabel('Gender')
 plt.ylabel('Total Characters')
 plt.title('Character Genders')
 plt.xticks(locations, ['Female', 'Males'])
-plt.show()
+#plt.show()
 
 # Cumulative Sentence Length
 
@@ -116,7 +117,7 @@ plt.xlabel('Gender')
 plt.ylabel('Total Characters')
 plt.title('Cumulative Sentence Length For Genders')
 plt.xticks(locations, ['Female', 'Males'])
-plt.show()
+#plt.show()
 
 # Avg Sentence Length
 
@@ -126,7 +127,7 @@ plt.xlabel('Gender')
 plt.ylabel('Total Characters')
 plt.title('Average Sentence Length For Genders')
 plt.xticks(locations, ['Female', 'Males'])
-plt.show()
+#plt.show()
 
 # Cumulative Words
 
@@ -136,7 +137,7 @@ plt.xlabel('Gender')
 plt.ylabel('Total Words')
 plt.title('Cumulative Words For Genders')
 plt.xticks(locations, ['Female', 'Males'])
-plt.show()
+#plt.show()
 
 # Avg Words Per Sentence
 
@@ -146,4 +147,26 @@ plt.xlabel('Gender')
 plt.ylabel('Total Words')
 plt.title('Average Words Per Sentence For Genders')
 plt.xticks(locations, ['Female', 'Males'])
-plt.show()
+#plt.show()
+
+# SENTIMENT ANALYSIS
+
+vVaderAnalyser = SentimentIntensityAnalyzer()
+
+def SentimentAnalyzerScores(pDialogue):
+    vScore = vVaderAnalyser.polarity_scores(pDialogue)
+    return dict(vScore)
+
+tabMovieLinesFull['Dialogue'] = tabMovieLinesFull['Dialogue'].astype(str)
+
+tabMovieLinesFull['Sentiment'] = tabMovieLinesFull.apply(lambda vRow: SentimentAnalyzerScores(vRow['Dialogue']), axis=1)
+
+DFSentiment = pd.DataFrame(list(tabMovieLinesFull['Sentiment']))
+
+DFSentiment.columns = ['Sentiment Negative', 'Sentiment Neutral', 'Sentiment Positive', 'Sentiment Compound']
+
+tabMovieLinesFull.reset_index(inplace=True)
+
+tabMovieLinesFull = pd.concat([tabMovieLinesFull, DFSentiment], axis=1)
+
+tabMovieLinesFull.drop(['Sentiment'], axis=1, inplace=True)

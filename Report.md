@@ -47,7 +47,7 @@ The tables are related in the following manner:
      alt="ERD"
      style="width: 800px; height: 300px;" />
 
-### Coding standards
+### Coding Standards
 
 * Entities like variables and functions have been named using camel case convention
 * Local variables have been prefixed using 'v'
@@ -68,9 +68,15 @@ Once these steps are completed, we are left with 303,249 lines of dialogues.
 The following packages will need to be imported for the analysis:
 
 ```python
+# Using dataframes
 import pandas as pd
+
+# Plotting charts
 from matplotlib import pyplot as plt
 from matplotlib.pyplot import xticks
+
+# Analyzing sentiment
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 ```
 
 ### Importing the Data
@@ -245,11 +251,11 @@ tabGenderGroups.reset_index(inplace=True)
 tabGenderGroups.columns = ['Gender', 'Total Characters', 'Cumulative Sentence Length', 'Avg Sentence Length', 'Cumulative Words', 'Avg Words Per Sentence']
 ```
 
-#### Visully Exploratoring the Data
+#### Visually Exploring the Data
 
 The following charts are visual representations of the data that is available to us after excluding rows without clearly specified gender.
 
-Yearly dialogues:
+###### Yearly dialogues available in our dataset:
 ```python
 YearlyDialogues = tabMovieLinesFull.groupby('Release Year').agg({
     'Dialogue': ['count']
@@ -272,9 +278,9 @@ plt.show()
 
 <img src="Assets/Visualizations/Yearly Dialogues.png"
      alt="ERD"
-     style="width: 800px; height: 300px;" />
+     style="width: 400px; height: 300px;" />
 
-Yearly movies:
+###### Yearly movies available in our dataset:
 ```python
 YearlyMovies = tabMovieLinesFull.groupby('Release Year').agg({
     'Movie ID': [pd.Series.nunique]
@@ -297,9 +303,9 @@ plt.show()
 
 <img src="Assets/Visualizations/Yearly Movies.png"
     alt="ERD"
-    style="width: 800px; height: 300px;" />
+    style="width: 400px; height: 300px;" />
 
-Total genders:
+###### Total genders available in our dataset:
 ```python
 plt.bar(tabGenderGroups['Gender'], tabGenderGroups['Total Characters'], align='center', width=0.4)
 locations, labels = xticks()
@@ -312,11 +318,11 @@ plt.show()
 
 <img src="Assets/Visualizations/Character Genders.png"
     alt="ERD"
-    style="width: 800px; height: 300px;" />
+    style="width: 400px; height: 300px;" />
 
 #### Visualizing Gender Differences
 
-Cumulative sentence length:
+###### Cumulative sentence length:
 ```python
 plt.bar(tabGenderGroups['Gender'], tabGenderGroups['Cumulative Sentence Length'], align='center', width=0.4)
 locations, labels = xticks()
@@ -329,9 +335,9 @@ plt.show()
 
 <img src="Assets/Visualizations/Cumulative Sentence Length.png"
     alt="ERD"
-    style="width: 800px; height: 300px;" />
+    style="width: 400px; height: 300px;" />
 
-Average sentence length:
+###### Average sentence length:
 ```python
 plt.bar(tabGenderGroups['Gender'], tabGenderGroups['Avg Sentence Length'], align='center', width=0.4)
 locations, labels = xticks()
@@ -344,9 +350,9 @@ plt.show()
 
 <img src="Assets/Visualizations/Avg Sentence Length.png"
     alt="ERD"
-    style="width: 800px; height: 300px;" />
+    style="width: 400px; height: 300px;" />
 
-Cumulative words:
+###### Cumulative words:
 ```python
 plt.bar(tabGenderGroups['Gender'], tabGenderGroups['Cumulative Words'], align='center', width=0.4)
 locations, labels = xticks()
@@ -359,9 +365,9 @@ plt.show()
 
 <img src="Assets/Visualizations/Cumulative Words.png"
     alt="ERD"
-    style="width: 800px; height: 300px;" />
+    style="width: 400px; height: 300px;" />
 
-Average words per sentence:
+##### Average words per sentence:
 ```python
 plt.bar(tabGenderGroups['Gender'], tabGenderGroups['Avg Words Per Sentence'], align='center', width=0.4)
 locations, labels = xticks()
@@ -374,4 +380,32 @@ plt.show()
 
 <img src="Assets/Visualizations/Avg Words Per Sentence.png"
     alt="ERD"
-    style="width: 800px; height: 300px;" />
+    style="width: 400px; height: 300px;" />
+
+#### Sentiment Analyses
+
+##### Tone
+
+The Python library VADER (Valence Aware Dictionary and sEntiment Reasoner) is a lexicon and rule-based sentiment analysis tool that is used to detect the semantic orientation of words (positive, negative, neutral, or compound). More information on this library can be found through this [link](https://github.com/cjhutto/vaderSentiment).
+
+````python
+vVaderAnalyser = SentimentIntensityAnalyzer()
+
+def SentimentAnalyzerScores(pDialogue):
+    vScore = vVaderAnalyser.polarity_scores(pDialogue)
+    return dict(vScore)
+
+tabMovieLinesFull['Dialogue'] = tabMovieLinesFull['Dialogue'].astype(str)
+
+tabMovieLinesFull['Sentiment'] = tabMovieLinesFull.apply(lambda vRow: SentimentAnalyzerScores(vRow['Dialogue']), axis=1)
+
+DFSentiment = pd.DataFrame(list(tabMovieLinesFull['Sentiment']))
+
+DFSentiment.columns = ['Sentiment Negative', 'Sentiment Neutral', 'Sentiment Positive', 'Sentiment Compound']
+
+tabMovieLinesFull.reset_index(inplace=True)
+
+tabMovieLinesFull = pd.concat([tabMovieLinesFull, DFSentiment], axis=1)
+
+tabMovieLinesFull.drop(['Sentiment'], axis=1, inplace=True)
+````
