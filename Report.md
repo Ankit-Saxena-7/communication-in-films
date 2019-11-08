@@ -68,15 +68,8 @@ Once these steps are completed, we are left with 303,249 lines of dialogues.
 The following packages will need to be imported for the analysis:
 
 ```python
-# Using dataframes
+# Importing libraries
 import pandas as pd
-
-# Plotting charts
-from matplotlib import pyplot as plt
-from matplotlib.pyplot import xticks
-
-# Analyzing sentiment
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 ```
 
 ### Importing the Data
@@ -255,6 +248,12 @@ tabGenderGroups.columns = ['Gender', 'Total Characters', 'Cumulative Sentence Le
 
 The following charts are visual representations of the data that is available to us after excluding rows without clearly specified gender.
 
+```python
+# Importing libraries
+from matplotlib import pyplot as plt
+from matplotlib.pyplot import xticks
+```
+
 ###### Yearly dialogues available in our dataset:
 ```python
 YearlyDialogues = tabMovieLinesFull.groupby('Release Year').agg({
@@ -387,6 +386,11 @@ plt.show()
 ##### Tone
 
 The Python library VADER (Valence Aware Dictionary and sEntiment Reasoner) is a lexicon and rule-based sentiment analysis tool that is used to detect the semantic orientation of words (positive, negative, neutral, or compound). More information on this library can be found through this [link](https://github.com/cjhutto/vaderSentiment).
+
+```python
+# Importing libraries
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+```
 
 ````python
 vVaderAnalyser = SentimentIntensityAnalyzer()
