@@ -1,4 +1,4 @@
-## Discovering Patterns in Film Dialogues
+## Gender Differences in Film Conversations
 
 A study on the quantitative and qualitative patterns in film dialogues across film genres, character gender, release year of the film, and so on.
 
@@ -23,7 +23,7 @@ The data has been systematically organized into five different tables in CSV for
 * _MovieCharacters.csv_: All movie characters uniquely identified by the Character ID column
 
 * _MovieLines.csv_: The actual text of each dialogue spoken uniquely identified by the Line ID column
-  
+
 * _MovieConversations.csv_: The structure of all conversations uniquely identified by the Character ID of the first character in the conversation, Character ID of the second character, and the Movie ID column
 
 * _MovieRawScriptURL.csv_: The uniform resource locator (URL) of all the raw scripts

@@ -1,5 +1,5 @@
 ---
-title: "Discovering Patterns in Film Dialogues"
+title: "Gender Differences in Film Conversations"
 author: Ankit Saxena
 output:
   html_document:
@@ -319,6 +319,14 @@ plt.show()
     alt="ERD"
     style="width: 400px; height: 300px;" />
 
+###### Finding yearly ratios of dialogues for men-women
+
+```python
+tabMovieLinesFull['Year'] = pd.DatetimeIndex(tabMovieLinesFull['Year']).year
+tabYearlyGenderCount = tabMovieLinesFull.loc[tabMovieLinesFull.Gender != '?'].groupby(['Year' , 'Gender']).size()
+tabYearlyGenderPercentages = tabYearlyGenderCount.groupby(level=0).apply(lambda x: x/float(x.sum()))
+```
+
 #### Visualizing Gender Differences
 
 ###### Cumulative sentence length:
@@ -381,9 +389,7 @@ plt.show()
     alt="ERD"
     style="width: 400px; height: 300px;" />
 
-#### Sentiment Analyses
-
-##### Tone
+#### Sentiment Analysis
 
 The Python library VADER (Valence Aware Dictionary and sEntiment Reasoner) is a lexicon and rule-based sentiment analysis tool that is used to detect the semantic orientation of words (positive, negative, neutral, or compound). More information on this library can be found through this [link](https://github.com/cjhutto/vaderSentiment).
 
@@ -413,3 +419,36 @@ tabMovieLinesFull = pd.concat([tabMovieLinesFull, DFSentiment], axis=1)
 
 tabMovieLinesFull.drop(['Sentiment'], axis=1, inplace=True)
 ````
+
+#### Downloading the Tables
+
+Downloading the tables to conduct further tests on MS Excel.
+
+````python
+tabYearlyGenderCount.to_csv('tabYearlyGenderCount.csv', sep=',', encoding='utf-8')
+tabMovieConversations.to_csv('tabMovieConversations.csv', sep=',', encoding='utf-8')
+tabGenderGroups.to_csv('tabGenderGroups.csv', sep=',', encoding='utf-8')
+tabMovieLinesFull.to_csv('tabMovieLinesFull.csv', sep=',', encoding='utf-8')
+tabYearlyGenderPercentages.to_csv('tabYearlyGenderPercentages.csv', sep=',', encoding='utf-8')
+````
+
+###### Finding conversation starters and finishers
+
+Follow the steps in MS Excel to identify the gender of character starting and finishing conversations:
+
+* Open the file _tabMovieConversations.csv_ in MS Excel
+* Navigate to the column _Conversation_
+* Use a combination of the Excel functions LEFT() and FIND() to find the first Line ID of each conversation, which represents the Line ID of the conversation starter. Name the resulting column Conversation Starter
+* Use a combination of the Excel functions RIGHT() and FIND() to find the last Line ID of each conversation, which represents the Line ID of the conversation finisher. Name the resulting column Conversation Finisher.
+* Use the VLOOKUP() function along with the columns Line ID and Gender columns in the downloaded Excel file _tabMovieLinesFull.csv_ to find out the genders of the conversation starters and finishers in the Excel sheet _tabMovieConversations.csv_. Name the resulting columns Starter Gender and Ender Gender.
+* Use a similar process to find the genders of the two characters involved in the conversation (columns ID First and ID Second in _tabMovieConversations.csv_). Name the resulting columns First Gender and Second Gender.
+
+#### Hypothesis Tests
+
+Using the 't-test: Two-Sample Assuming Unequal Variances' feature in MS Excel's Data Analysis package, you can perform t-tests for the following hypotheses:
+
+* Difference in average number of characters per dialogue for men and women: Using the columns Gender and Dialogue Length in _tabMovieLinesFull.csv_.
+* Difference in average number of words per dialogue for men and women: Using the columns Gender and Dialogue Words in _tabMovieLinesFull.csv_.
+* Difference in total number and average number per movie of conversation starters and finishers for men and women: Using the columns Starter Gender, Ender Gender, and Movie ID in _tabMovieConversations.csv_.
+* Differences between number of conversations between men-men, men-women, and women-women: Using the columns First Gender and Second Gender in _tabMovieConversations.csv_.
+* Differences in sentiment scores by VADER for men and women: Using the columns Sentiment Negative, Sentiment Neutral, Sentiment Positive, and Sentiment Compound in _tabMovieLinesFull.csv_.
